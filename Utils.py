@@ -13,7 +13,7 @@ def generate_polygon_mesh(n, size, center):
     sin_theta = math.sin(theta)
     cos_theta = math.cos(theta)
     # world2relative = lambda coord : (coord[0] - center[0], coord[1] - center[1])
-    relative2world = lambda coord : (coord[0] + center[0], coord[1] + center[1])
+    relative2world = lambda coord : np.array([coord[0] + center[0], coord[1] + center[1]])
     rotate = lambda coord : (coord[0] * cos_theta - coord[1] * sin_theta, coord[0] * sin_theta + coord[1] * cos_theta)
     first = (0, size)
     verts = [(0,0), first]
@@ -33,7 +33,7 @@ def generate_embedded_polygon_mesh(n, M, size, center):
     theta = 2 * math.pi / n
     sin_theta = math.sin(theta)
     cos_theta = math.cos(theta)
-    relative2world = lambda coord : (coord[0] + center[0], coord[1] + center[1])
+    relative2world = lambda coord : np.array([coord[0] + center[0], coord[1] + center[1]])
     rotate = lambda coord : (coord[0] * cos_theta - coord[1] * sin_theta, coord[0] * sin_theta + coord[1] * cos_theta)
     first = (0, size)
     verts = [(0,0), first]
@@ -76,5 +76,29 @@ def visualize_records(axs : matplotlib.axes.Axes, record : Record):
         xs = [previous[0], current[0]]
         ys = [previous[1], current[1]]
         previous = current
-        axs.plot(xs, ys, color='black', linewidth=0.5)
+        axs.plot(xs, ys, color='black', linewidth=1.0)
 
+def visualize_targets(axs : matplotlib.axes.Axes, targets):
+    for t in targets:
+        axs.plot(t[0], t[1], color='red', marker='x')
+
+def line_implicit_equation(A, B):
+    _A = A[1] - B[1]
+    _B = B[0] - A[0]
+    _C = A[0] * B[1] - B[0] * A[1]
+    return lambda p: _A * p[0] + _B * p[1] + _C
+
+def is_point_in_triangle(P, A, B, C):
+    x = line_implicit_equation(A,B)(P)
+    y = line_implicit_equation(B,C)(P)
+    z = line_implicit_equation(C,A)(P)
+    return x >= 0 and y >= 0 and z >= 0
+
+def barycentric_coordinates(P, A, B, C):
+    ab_line = line_implicit_equation(A, B)
+    gamma = ab_line(P) / ab_line(C)
+    ca_line = line_implicit_equation(C, A)
+    beta = ca_line(P) / ca_line(B)
+    bc_line = line_implicit_equation(B, C)
+    alpha = bc_line(P) / bc_line(A)
+    return alpha, beta, gamma
