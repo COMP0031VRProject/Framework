@@ -8,4 +8,4 @@ class Bot:
         Args:
             destination ([type]): [description]
         """        
-        return normalize(target - position) * self.speed
+        return normalize(target - position) * min(self.speed, np.linalg.norm(target - position))
