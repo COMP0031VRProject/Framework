@@ -61,6 +61,49 @@ def generate_embedded_polygon_mesh(n, M, size, center):
     mesh = Mesh(verts, tInd)
     return mesh
 
+def generate_rectangle_mesh_grid(top_left_position, bottom_right_position, row : int, column : int):
+    verts = []
+    tInd = []
+    width = (bottom_right_position[0] - top_left_position[0])
+    height = (top_left_position[1] - bottom_right_position[1])
+    column_width = width / column
+    row_height = height / row
+    firsts = []
+    for r in range(row + 1):
+        x, y = 0, top_left_position[1] - r * row_height
+        firsts.append(len(verts))
+        verts.append((x, y))
+        alternate = (r % 2) == 1
+        if alternate:
+            x = -0.5 * column_width
+        for _ in range(column):
+            x += column_width
+            verts.append((x, y))
+        if alternate:
+            verts.append((width, y))
+    for i,first in enumerate(firsts[:-1]):
+        if i % 2 == 0:
+            next_first = firsts[i + 1]
+            last = next_first - 1
+            k = 0
+            for j in range(first, last):
+                k = next_first + j - first
+                tInd.append((j, k, k+1))
+                tInd.append((j, k+1, j+1))
+            tInd.append((last, k+1, k+2))
+        else:
+            next_first = firsts[i + 1]
+            last = next_first - 1
+            k = 0
+            for j in range(first, last - 1):
+                k = next_first + j - first
+                tInd.append((j, k, j+1))
+                tInd.append((j+1, k, k+1))
+            tInd.append((last-1, k+1, last))
+    verts = [np.array(x) for x in verts]
+    mesh = Mesh(verts, tInd)
+    return mesh               
+
 def visualize_mesh(axs : matplotlib.axes.Axes, mesh : Mesh):
     for t in mesh.tInd:
         verts = [mesh.verts[i] for i in t]
