@@ -15,8 +15,8 @@ def generate_polygon_mesh(n, size, center):
     # world2relative = lambda coord : (coord[0] - center[0], coord[1] - center[1])
     relative2world = lambda coord : np.array([coord[0] + center[0], coord[1] + center[1]])
     rotate = lambda coord : (coord[0] * cos_theta - coord[1] * sin_theta, coord[0] * sin_theta + coord[1] * cos_theta)
-    first = (0, size)
-    verts = [(0,0), first]
+    first = (0., float(size))
+    verts = [(0.,0.), first]
     tInd = []
     previous = first
     for i in range(1, n):
