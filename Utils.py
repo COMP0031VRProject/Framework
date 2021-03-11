@@ -119,7 +119,7 @@ def visualize_records(axs : matplotlib.axes.Axes, record : Record):
         xs = [previous[0], current[0]]
         ys = [previous[1], current[1]]
         previous = current
-        axs.plot(xs, ys, color='black', linewidth=1.0)
+        axs.plot(xs, ys, color='black', linewidth=2.0)
 
 def visualize_targets(axs : matplotlib.axes.Axes, targets):
     for t in targets:

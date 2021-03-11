@@ -63,12 +63,14 @@ for i in range(5):
     for c in circumradius:
         generate_regular_polygon(vertices, segments, center, c, edges, marker)
 
+isolated_vertices = centers + [(0,0)]
+
 fileName = 'generated_files\\original.poly'
 with open(fileName, 'w') as file:
-    file.write("{0} {1} {2} {3}\n".format(len(vertices) + len(centers), 2, 0, 1))
+    file.write("{0} {1} {2} {3}\n".format(len(vertices) + len(isolated_vertices), 2, 0, 1))
     for i, vertex in enumerate(vertices):
         file.write("{0} {1} {2} {3}\n".format(i+1, vertex[0], vertex[1], vertex[2]))
-    for i, vertex in enumerate(centers):
+    for i, vertex in enumerate(isolated_vertices):
         file.write("{0} {1} {2} {3}\n".format(i+1+len(vertices), vertex[0], vertex[1], 0))
     
     file.write("{0} {1}\n".format(len(segments), 1))
