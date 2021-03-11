@@ -7,10 +7,12 @@ import matplotlib.pyplot as plt
 import math
 
 mesh1 = Mesh(None, None)
-mesh1.loadNodeAndEle('generated_files\\original.1.node', 'generated_files\\original.1.ele')
+mesh1.load("generated_files\\pressure_ring_virtual.json")
+mesh1.verts = [np.array(v) for v in mesh1.verts]
 
 mesh2 = Mesh(None, None)
-mesh2.loadNodeAndEle('generated_files\\expanded.1.node', 'generated_files\\expanded.1.ele')
+mesh2.load("generated_files\\pressure_ring_real.json")
+mesh2.verts = [np.array(v) for v in mesh2.verts]
 
 # Initialize the Bot
 bot = Bot(speed=0.1)
@@ -41,6 +43,8 @@ visualize_targets(axs[0], targets)
 visualize_records(axs[0], vRecord)
 
 axs[1].set_aspect('equal')
+axs[1].set_xlim((-6., 6.))
+axs[1].set_ylim((-6., 6.))
 visualize_mesh(axs[1], mesh2)
 visualize_records(axs[1], rRecord)
 
@@ -50,4 +54,4 @@ mesh1.verts = [list(v) for v in mesh1.verts]
 mesh1.save("generated_files\\pressure_ring_virtual.json")
 
 mesh2.verts = [list(v) for v in mesh2.verts]
-mesh2.save("generated_files\\presure_ring_real.json")
+mesh2.save("generated_files\\pressure_ring_real.json")
