@@ -40,7 +40,7 @@ segments.append((2, 3, 2))
 segments.append((3, 4, 2))
 segments.append((4, 1, 2))
 
-first = (4., 0.)
+first = (4, 0)
 
 theta = 2 * math.pi / 6
 sin_theta = math.sin(theta)
@@ -48,6 +48,8 @@ cos_theta = math.cos(theta)
 rotate = lambda coord : (coord[0] * cos_theta - coord[1] * sin_theta, coord[0] * sin_theta + coord[1] * cos_theta)
 
 circumradius = [0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.0]
+
+circumradius = [(c - 0.3) * (1.4 / 1.7) + 0.6 for c in circumradius]
 
 centers = [first]
 center = first
@@ -63,7 +65,7 @@ for i in range(5):
     for c in circumradius:
         generate_regular_polygon(vertices, segments, center, c, edges, marker)
 
-fileName = 'generated_files\\original.poly'
+fileName = 'generated_files\\expanded.poly'
 with open(fileName, 'w') as file:
     file.write("{0} {1} {2} {3}\n".format(len(vertices) + len(centers), 2, 0, 1))
     for i, vertex in enumerate(vertices):
