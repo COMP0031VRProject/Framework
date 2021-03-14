@@ -6,7 +6,7 @@ radius = 1
 
 ts1 = TestSuite(1, 3, 4.46)
 ts1.generate()
-ts1.save("./test_3_346.json")
+ts1.save("./test_3_446.json")
 
 # combs = combinations(Flag, 3)
 
