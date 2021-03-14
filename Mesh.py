@@ -1,7 +1,7 @@
 import torch
-import numpy as np
 import json
 import numpy as np
+
 
 class Mesh:
     def __init__(self, verts, tInd):
@@ -19,7 +19,7 @@ class Mesh:
 
     def save(self, file):  # save data to specified file
         data = {
-            "verts": self.verts,
+            "verts": [list(v) for v in self.verts],
             "tInd": self.tInd
         }
 
@@ -39,7 +39,7 @@ class Mesh:
             while line[0] == '#':
                 line = file.readline().strip()
             # first line
-            
+
             for line in file.readlines():
                 if line.split()[0] == '#':
                     continue
@@ -59,19 +59,23 @@ class Mesh:
                     continue
                 words = line.split()
                 self.tInd.append((int(words[1]) - 1, \
-                    int(words[2]) - 1, \
-                    int(words[3]) - 1))
+                                  int(words[2]) - 1, \
+                                  int(words[3]) - 1))
+
+
 class Edge:
     def __init__(self, length):
         self.length = length
         self.stiffness = 1.0
         self.rest_length = 1.0
 
+
 class SpringMesh(Mesh):
     def __init__(self, verts, tInd):
         super().__init__(verts, tInd)
         self.edges = {}
         self.update_edges()
+
     def update_edges(self):
         for t in self.tInd:
             e1 = tuple(sorted([t[0], t[1]]))
@@ -81,6 +85,7 @@ class SpringMesh(Mesh):
             for e in E:
                 if not e in self.edges.keys():
                     self.edges[e] = Edge(torch.linalg.norm(self.verts[e[0]] - self.verts[e[1]]))
+
     def connected(self, vIndex):
         ans = {}
         for e in self.edges.keys():
@@ -88,5 +93,6 @@ class SpringMesh(Mesh):
                 k = e[0] if e[0] != vIndex else e[1]
                 ans[k] = self.edges[e]
         return ans
+
     def copy(self):
         return SpringMesh(self.verts, self.tInd.copy())

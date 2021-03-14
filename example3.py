@@ -28,7 +28,7 @@ centers = [first]
 theta = 2 * math.pi / 6
 sin_theta = math.sin(theta)
 cos_theta = math.cos(theta)
-rotate = lambda coord : (coord[0] * cos_theta - coord[1] * sin_theta, coord[0] * sin_theta + coord[1] * cos_theta)
+rotate = lambda coord: (coord[0] * cos_theta - coord[1] * sin_theta, coord[0] * sin_theta + coord[1] * cos_theta)
 for i in range(5):
     centers.append(rotate(centers[-1]))
 targets = [c for c in centers] + [centers[1]]
@@ -38,7 +38,7 @@ targets = [np.array(t) for t in targets]
 world = World(mesh1, mesh2, start_position, bot, targets)
 rRecord, vRecord = world.simulate()
 
-fig, axs = plt.subplots(1,2)
+fig, axs = plt.subplots(1, 2)
 axs[0].set_aspect('equal')
 visualize_mesh(axs[0], mesh1)
 visualize_targets(axs[0], targets)
@@ -52,8 +52,8 @@ visualize_records(axs[1], rRecord)
 
 plt.show()
 
-mesh1.verts = [list(v) for v in mesh1.verts]
+# mesh1.verts = [list(v) for v in mesh1.verts]  # moved conversion into Mesh.py
 mesh1.save("generated_files\\pressure_ring_virtual.json")
 
-mesh2.verts = [list(v) for v in mesh2.verts]
+# mesh2.verts = [list(v) for v in mesh2.verts]
 mesh2.save("generated_files\\pressure_ring_real.json")
