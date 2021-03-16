@@ -24,7 +24,7 @@ class TestSuite:
         combs = list(permutations(Flag, self.flag_num))
 
         for comb in combs:
-            dist = 1
+            dist = 2
             sequence = []
             for flag in comb:
                 sequence.append(flag.name)

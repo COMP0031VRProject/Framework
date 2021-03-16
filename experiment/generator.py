@@ -4,9 +4,14 @@ from itertools import combinations
 
 radius = 1
 
-ts1 = TestSuite(1, 3, 4.46)
+suite_id = 1
+flag_num = 3
+distance = 4.46
+
+ts1 = TestSuite(suite_id, flag_num, distance)
 ts1.generate()
-ts1.save("./test_3_446.json")
+file_name = './test_' + str(flag_num) + '_'+ str(distance) + '.json'
+ts1.save(file_name)
 
 # combs = combinations(Flag, 3)
 
