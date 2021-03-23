@@ -33,7 +33,7 @@ class TestSuite:
                 next = comb[i+1]
                 dist += self.distance_between(curr, next)
 
-            if dist == self.distance:
+            if round(dist,2) == self.distance:
                 self.trial_id += 1
                 trial = Trial(self.trial_id, sequence)
                 self.trials.append(trial.__dict__)
