@@ -24,7 +24,7 @@ class TestSuite:
         combs = list(permutations(Flag, self.flag_num))
 
         for comb in combs:
-            dist = 1
+            dist = 2
             sequence = []
             for flag in comb:
                 sequence.append(flag.name)
@@ -33,7 +33,7 @@ class TestSuite:
                 next = comb[i+1]
                 dist += self.distance_between(curr, next)
 
-            if dist == self.distance:
+            if round(dist,2) == self.distance:
                 self.trial_id += 1
                 trial = Trial(self.trial_id, sequence)
                 self.trials.append(trial.__dict__)

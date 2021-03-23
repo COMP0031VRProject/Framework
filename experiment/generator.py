@@ -4,16 +4,11 @@ from itertools import combinations
 
 radius = 1
 
-ts1 = TestSuite(1, 3, 4.46)
+suite_id = 1
+flag_num = 5
+distance = 7.46
+
+ts1 = TestSuite(suite_id, flag_num, distance)
 ts1.generate()
-ts1.save("./test_3_446.json")
-
-# combs = combinations(Flag, 3)
-
-# for comb in list(combs): 
-#     dist = 1
-#     for i in range(2):
-#         curr = comb[i]
-#         next = comb[i+1]
-#         dist += ts1.distance_between(curr, next)
-#     print(dist)
+file_name = './test_' + str(flag_num) + '_'+ str(distance) + '.json'
+ts1.save(file_name)
