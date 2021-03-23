@@ -1,4 +1,5 @@
-import torch
+# import torch
+import numpy as np
 import json
 import numpy as np
 
@@ -84,8 +85,7 @@ class SpringMesh(Mesh):
             E = [e1, e2, e3]
             for e in E:
                 if not e in self.edges.keys():
-                    self.edges[e] = Edge(torch.linalg.norm(self.verts[e[0]] - self.verts[e[1]]))
-
+                    self.edges[e] = Edge(np.linalg.norm(self.verts[e[0]] - self.verts[e[1]]))
     def connected(self, vIndex):
         ans = {}
         for e in self.edges.keys():

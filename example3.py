@@ -7,14 +7,14 @@ import matplotlib.pyplot as plt
 import math
 
 mesh1 = Mesh(None, None)
-# mesh1.load("generated_files\\pressure_ring_virtual.json")
-mesh1.loadNodeAndEle("generated_files\\original.1.node", "generated_files\\original.1.ele")
+mesh1.load("generated_files\\pressure_ring_virtual.json")
+# mesh1.loadNodeAndEle("generated_files\\original.1.node", "generated_files\\original.1.ele")
 mesh1.verts = [np.array(v) for v in mesh1.verts]
 
 mesh2 = Mesh(None, None)
-# mesh2.load("generated_files\\pressure_ring_real.json")
-mesh2.loadNodeAndEle("generated_files\\expanded.1.node", "generated_files\\expanded.1.ele")
-mesh2.verts = [0.5 * np.array(v) for v in mesh2.verts]
+mesh2.load("generated_files\\pressure_ring_real.json")
+# mesh2.loadNodeAndEle("generated_files\\expanded.1.node", "generated_files\\expanded.1.ele")
+mesh2.verts = [np.array(v) for v in mesh2.verts]
 
 # Initialize the Bot
 bot = Bot(speed=0.1)
@@ -52,8 +52,8 @@ visualize_records(axs[1], rRecord)
 
 plt.show()
 
-# mesh1.verts = [list(v) for v in mesh1.verts]  # moved conversion into Mesh.py
-mesh1.save("generated_files\\pressure_ring_virtual.json")
+# mesh1.verts = [list(v) for v in mesh1.verts]
+# mesh1.save("generated_files\\pressure_ring_virtual.json")
 
 # mesh2.verts = [list(v) for v in mesh2.verts]
-mesh2.save("generated_files\\pressure_ring_real.json")
+# mesh2.save("generated_files\\pressure_ring_real.json")

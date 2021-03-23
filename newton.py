@@ -6,7 +6,7 @@ from Mesh import *
 from Utils import *
 import math
 
-mesh = generate_rectangle_mesh_grid((0, 10), (10, 0), 10, 10)
+mesh = generate_rectangle_mesh_grid((0,10), (10, 0), 20, 20)
 
 # fig, axs = plt.subplots(1,1)
 
@@ -54,7 +54,11 @@ def Fi_function(mesh, vIndex):
 
 F_fun = [Fi_function(springMesh, i) for i in range(len(springMesh.verts))]
 
-T = [52, 53]
+# T = [1550, 1551, 1552,\
+#      1651, 1652, 1653]
+
+T = [50]
+
 E = []
 for t in T:
     E.append(tuple(sorted([tInd[t][0], tInd[t][1]])))
@@ -63,7 +67,8 @@ for t in T:
 
 for k, v in springMesh.edges.items():
     if k in E:
-        v.rest_length = v.length * 4
+        v.rest_length = v.length * 2
+        v.stiffness = 1.0
     else:
         v.rest_length = v.length
         v.stiffness = 1.0
@@ -76,11 +81,11 @@ history = []
 theta = 1e-3
 maximum_iteration = 50
 
-fixed_boundary = True
+fixed_boundary = False
 
 for i in range(maximum_iteration):
     history.append(force_magnitude_sum(springMesh) / len(springMesh.verts))
-    if (history[-1] < theta): break
+    # if(history[-1] < theta): break
     # if i % 20 == 0:
     #     print(history[-1])
     #     fig, axs = plt.subplots(1,1)
