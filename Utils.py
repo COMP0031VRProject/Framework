@@ -4,6 +4,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from Mesh import *
 from Record import Record
+from World import *
 
 def normalize(x):
     return x / np.linalg.norm(x)
@@ -15,8 +16,8 @@ def generate_polygon_mesh(n, size, center):
     # world2relative = lambda coord : (coord[0] - center[0], coord[1] - center[1])
     relative2world = lambda coord : np.array([coord[0] + center[0], coord[1] + center[1]])
     rotate = lambda coord : (coord[0] * cos_theta - coord[1] * sin_theta, coord[0] * sin_theta + coord[1] * cos_theta)
-    first = (0, size)
-    verts = [(0,0), first]
+    first = (0., float(size))
+    verts = [(0.,0.), first]
     tInd = []
     previous = first
     for i in range(1, n):
@@ -119,11 +120,33 @@ def visualize_records(axs : matplotlib.axes.Axes, record : Record):
         xs = [previous[0], current[0]]
         ys = [previous[1], current[1]]
         previous = current
-        axs.plot(xs, ys, color='black', linewidth=1.0)
+        axs.plot(xs, ys, color='black', linewidth=2.0)
 
-def visualize_targets(axs : matplotlib.axes.Axes, targets):
+def visualize_targets(axs : matplotlib.axes.Axes, targets, color='red', marker='x'):
     for t in targets:
-        axs.plot(t[0], t[1], color='red', marker='x')
+        axs.plot(t[0], t[1], color=color, marker=marker)
+
+def visualize_dot(ax1, ax2, vMesh, rMesh, top_left, bottom_right, interval):
+    world = World(vMesh, rMesh, [0., 0.], None, [])
+    width = bottom_right[0] - top_left[0]
+    height =top_left[1] - bottom_right[1]
+    real_points = []
+    for y in range(1, int(height / interval)):
+        for x in range(int(width / interval)):
+            real_points.append(np.array([top_left[0] + x * interval, top_left[1] - y * interval]))
+    virtual_points = []
+    for rp in real_points:
+        vp = world.real2virtual(rp)
+        virtual_points.append(vp)
+    
+    ax1.set_aspect('equal')
+    ax1.set_xlim((top_left[0], bottom_right[0]))
+    ax1.set_ylim((bottom_right[1], top_left[1]))
+
+    ax2.set_aspect('equal')
+    visualize_targets(ax1, real_points, color='black', marker='.')
+    visualize_targets(ax2, virtual_points, color='black', marker='.')
+    
 
 def line_implicit_equation(A, B):
     _A = A[1] - B[1]
