@@ -33,6 +33,7 @@ def generate_angle_diff(r_coords, v_coords):
 
         theta = theta_deg  # choose output format 
         diff_list.append(theta)
+        prev_frame = curr_frame
         
     return diff_list
 
@@ -71,6 +72,7 @@ def generate_scaling_factor_diff(r_coords, v_coords):
         else:
             scaling = dist_v / dist_r
             diff_list.append(scaling)
+        prev_frame = curr_frame
 
     return diff_list
 
