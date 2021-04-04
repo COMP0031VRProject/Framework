@@ -7,4 +7,5 @@ v_coords = df['coords_V'][0]
 r_coords = df['coords_R'][0]
 
 diff_list = generate_angle_diff(r_coords, v_coords)
-visualize_angle_diff(diff_list)
+plt.plot(diff_list)
+plt.show()

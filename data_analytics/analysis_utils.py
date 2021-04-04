@@ -135,17 +135,17 @@ def visualize_targets(axs, targets, color='blue', marker='x'):
         axs.plot(t[0], t[1], color=color, marker=marker)
 
 # Function to visualize the changing of scaling factors
-def visualize_scaling_diff(data):
-    plt.plot(data)
-    plt.show()
+def visualize_scaling_diff(axs, scaling_diffs):
+    axs.plot(scaling_diffs)
+
 # Function to visualize the changing of 
 # angle differences based on frame
-def visualize_angle_diff(data):
+def visualize_angle_diff(axs, angle_diffs):
     """
     data: List -> a list contain the angle difference
     """
-    plt.plot(data)
-    plt.show()
+    axs.plot(angle_diffs)
+
 # Function to visualize the changing of 
 # angle differences based on accumulated real distance
 def visualize_angle_diff_vs_real_distance(r_dists, angle_diffs):
