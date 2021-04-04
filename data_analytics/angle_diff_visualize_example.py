@@ -1,6 +1,6 @@
 from analysis_utils import *
 
-coords_json_file = './data_analytics/data/testsuite_1_coords.json'
+coords_json_file = './data_analytics/data/OA/OA_Testsuite_1_coords.json'
 df = load_single(coords_json_file)
 
 v_coords = df['coords_V'][0]

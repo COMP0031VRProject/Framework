@@ -1,14 +1,30 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-from matplotlib.path import Path
 
 # Function to load a single json file into a pandas data frame
 def load_single(file_name):
     data = pd.read_json(file_name)
     df = pd.DataFrame(data)
     return df
+
+# Function to generate accumulated distance in real
+def generate_accum_distance(r_coords):
+    frames = len(r_coords)
+    prev_frame = 0
+    accum_dist = 0
+    dists = []
+    for curr_frame in range(1, frames):
+        prev_r = r_coords[prev_frame]
+        curr_r = r_coords[curr_frame]
+        dist_r = get_distance(prev_r, curr_r)
+
+        dists.append(accum_dist)
+        accum_dist += dist_r
+        prev_frame = curr_frame
+
+    return dists
+
 
 # Function to generate angle difference list
 def generate_angle_diff(r_coords, v_coords):
@@ -43,11 +59,18 @@ def get_angle(v_a, v_b):
     norm_b = np.linalg.norm(v_b)
     product = np.dot(v_a, v_b)
 
+    cross = np.cross(v_a, v_b)
+
     if norm_a * norm_b == 0:
         return 0.0
 
-    return np.arccos(product / (norm_a * norm_b))
+    theta = 0.0
+    if cross > 0:
+        theta = np.arccos(product / (norm_a * norm_b))
+    else:
+        theta = -np.arccos(product / (norm_a * norm_b))
 
+    return theta
 
 # Function to generate scaling factor difference
 def generate_scaling_factor_diff(r_coords, v_coords):
@@ -107,16 +130,26 @@ def visualize_mesh(axs, mesh):
         ys.append(ys[0])
         axs.plot(xs, ys, color='black', linewidth=0.5)
 
+def visualize_targets(axs, targets, color='blue', marker='x'):
+    for t in targets:
+        axs.plot(t[0], t[1], color=color, marker=marker)
+
 # Function to visualize the changing of scaling factors
 def visualize_scaling_diff(data):
     plt.plot(data)
     plt.show()
-# Function to visualize the changing of angle differences
+# Function to visualize the changing of 
+# angle differences based on frame
 def visualize_angle_diff(data):
     """
     data: List -> a list contain the angle difference
     """
     plt.plot(data)
+    plt.show()
+# Function to visualize the changing of 
+# angle differences based on accumulated real distance
+def visualize_angle_diff_vs_real_distance(r_dists, angle_diffs):
+    plt.plot(r_dists, angle_diffs)
     plt.show()
     
     
