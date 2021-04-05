@@ -9,7 +9,7 @@ def load_single(file_name):
     return df
 
 # Function to generate accumulated distance in real
-def generate_accum_distance(r_coords):
+def generate_accum_distance_real(r_coords):
     frames = len(r_coords)
     prev_frame = 0
     accum_dist = 0
@@ -24,6 +24,22 @@ def generate_accum_distance(r_coords):
         prev_frame = curr_frame
 
     return dists
+# Function to generate accumulated distance in virtual
+def generate_accum_distance_virtual(v_coords):
+    frames = len(v_coords)
+    prev_frame = 0
+    accum_dist = 0
+    dists = []
+    for curr_frame in range(1, frames):
+        prev_r = v_coords[prev_frame]
+        curr_r = v_coords[curr_frame]
+        dist_r = get_distance(prev_r, curr_r)
+
+        dists.append(accum_dist)
+        accum_dist += dist_r
+        prev_frame = curr_frame
+
+    return dists 
 
 
 # Function to generate angle difference list

@@ -3,15 +3,15 @@ from Mesh import *
 import math
 
 #Load Coordinates
-coords_json_file = './data_analytics/data/OA/OA_TestSuite_2_coords.json'
+coords_json_file = './data_analytics/data/PR/PR_TestSuite_2_coords.json'
 df = load_single(coords_json_file)
 
 v_mesh = Mesh(None, None)
-v_mesh.load("./data_analytics/mesh/optimization_virtual.json")
+v_mesh.load("./data_analytics/mesh/pressure_ring_virtual.json")
 v_mesh.verts = [np.array(v) for v in v_mesh.verts]
 
 r_mesh = Mesh(None, None)
-r_mesh.load("./data_analytics/mesh/optimization_real.json")
+r_mesh.load("./data_analytics/mesh/pressure_ring_real.json")
 r_mesh.verts = [np.array(v) for v in r_mesh.verts]
 
 first = (4, 0)
