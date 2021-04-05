@@ -24,6 +24,7 @@ def generate_accum_distance_real(r_coords):
         prev_frame = curr_frame
 
     return dists
+
 # Function to generate accumulated distance in virtual
 def generate_accum_distance_virtual(v_coords):
     frames = len(v_coords)
@@ -91,7 +92,7 @@ def get_angle(v_a, v_b):
 # Function to generate scaling factor difference
 def generate_scaling_factor_diff(r_coords, v_coords):
     if len(r_coords) != len(v_coords):
-        print("Error: Real coords does not match virtual coords");
+        print("Error: Real coords does not match virtual coords")
         return
     
     frames = len(r_coords)
@@ -107,7 +108,7 @@ def generate_scaling_factor_diff(r_coords, v_coords):
         dist_v = get_distance(prev_v, curr_v)
 
         if dist_r == 0:
-            diff_list.append(0.0)
+            diff_list.append(1.0)
         else:
             scaling = dist_v / dist_r
             diff_list.append(scaling)
