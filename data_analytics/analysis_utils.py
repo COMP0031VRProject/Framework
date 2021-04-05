@@ -229,7 +229,50 @@ def angle_diffs_int(r_coords, v_coords):
 
     return accum
 
-     
+# Function to get the max gradient of angle difference changing
+def max_angle_diffs_grad(theta_list, virtual_list):
+    if len(theta_list) != len(virtual_list):
+        print("Error: Real coords does not match virtual coords")
+        return
+
+    max_grad = 0
+    length = len(theta_list)
+    
+    for i in range(0, length-1):
+        if (theta_list[i] > 90.0):
+            continue
+
+        d_theta = abs(theta_list[i + 1] - theta_list[i])
+        d_v = virtual_list[i + 1] - virtual_list[i]
+
+        if d_v == 0.0:
+            continue
+        grad = d_theta / d_v
+        if grad > max_grad:
+            max_grad = grad
+    
+    return max_grad
+    
+# Function to get the max gradient of scaling factor changing
+def max_scaling_factor_diff_grad(scaling_list, virtual_list):
+    if len(scaling_list) != len(virtual_list):
+        print("Error: Real coords does not match virtual coords")
+        return
+    max_grad = 0
+    length = len(scaling_list)
+
+    for i in range(0, length-1):
+        d_s = abs(scaling_list[i + 1] - scaling_list[i])
+        d_v = virtual_list[i + 1] - virtual_list[i]
+
+        if d_v == 0.0:
+            continue
+        grad = d_s / d_v
+        if grad > max_grad:
+            max_grad = grad
+
+    return max_grad
+            
 # Function to visualize a path by series of coords (real, virtual)
 def visualize_path(axs, coords):
     """
