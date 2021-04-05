@@ -6,7 +6,5 @@ df = load_single(coords_json_file)
 v_coords = df['coords_V'][0]
 r_coords = df['coords_R'][0]
 
-diff_list = generate_angle_diff(r_coords, v_coords)
-accum_dist = generate_accum_distance_real(r_coords)
-
-visualize_angle_diff_vs_real_distance(accum_dist, diff_list)
+res = scaling_factor_int_relavent(r_coords, v_coords)
+print(res)
