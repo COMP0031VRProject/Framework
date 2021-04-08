@@ -8,15 +8,15 @@ df_lc = pd.read_excel('./data_analytics/excels/LC.xlsx')
 df_rlc = pd.read_excel('./data_analytics/excels/RLC.xlsx')
 
 # Config
-metric_name = 'scaling_factor_relevant_'
+metric_name = 'angle_diffs_relavant_'
 bar_width = 0.2
 opacity = 0.4
 error_config = {'ecolor': '0.3', 'capsize' : 1.5}
 
 # Texts
-title = 'Accumulation of Scaling Factor(SF) Differences to 1'
+title = 'Accumulation of Angle Error in Relavent Area'
 x_label = 'Test Suite'
-y_label = 'SF Difference Integration'
+y_label = 'Angle Error Integration'
 file_name = metric_name + 'figure.png'
 
 size = 14
