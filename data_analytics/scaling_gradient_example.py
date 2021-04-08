@@ -1,6 +1,6 @@
 from analysis_utils import *
 
-coords_json_file = './data_analytics/data/PR/PR_TestSuite_2_coords.json'
+coords_json_file = '/Users/sweetie/GitHubWorkPlace/VRProject/Framework/data_analytics/data/LC/coords/LC_TestSuite_5_coords.json'
 df = load_single(coords_json_file)
 
 v_coords = df['coords_V'][0]

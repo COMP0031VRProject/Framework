@@ -3,7 +3,7 @@ from pandas import DataFrame
 from analysis_utils import *
 
 
-path = './data_analytics/data/PR/coords/'
+path = '/Users/sweetie/GitHubWorkPlace/VRProject/Framework/data_analytics/data/LC/coords/'
 _, _, filenames = next(walk(path))
 
 metrics_list = []
