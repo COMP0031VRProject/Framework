@@ -14,7 +14,7 @@ opacity = 0.4
 error_config = {'ecolor': '0.3', 'capsize' : 1.5}
 
 # Texts
-title = 'Accumulation of Angle Differences in Relevant Area'
+title = 'Accumulation of Angle Error'
 x_label = 'Test Suite'
 y_label = 'Angle Error Integration'
 file_name = metric_name + 'figure.png'
@@ -63,16 +63,16 @@ x = test_suites - bar_width
 y = avg_pr
 
 for a,b in zip(x,y):
-    plt.text(a, b+0.05, '%.04f' % b, ha='center', va= 'bottom',fontsize=9)
+    plt.text(a, b+0.05, '%.04f' % b, ha='center', va= 'bottom',fontsize=10)
 
 axs.set_xticks(test_suites + bar_width / 4)
 axs.set_xticklabels(test_suites)
-axs.set_xlabel(x_label)
-axs.set_ylabel(y_label)
-axs.set_title(title)
-axs.legend(loc="upper right", prop={'size': 12})
+axs.set_xlabel(x_label, fontsize=13)
+axs.set_ylabel(y_label, fontsize=13)
+axs.set_title(title, fontsize=16)
+axs.legend(loc="upper right", prop={'size': 13})
 
-plt.savefig('./data_analytics/figures/'+ file_name)
+# plt.savefig('./data_analytics/figures/'+ file_name, bbox_inches = 'tight')
 plt.show()
 
 
