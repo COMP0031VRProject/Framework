@@ -8,15 +8,15 @@ df_lc = pd.read_excel('./data_analytics/excels/LC.xlsx')
 df_rlc = pd.read_excel('./data_analytics/excels/RLC.xlsx')
 
 # Config
-metric_name = 'angle_diffs_relavant_'
+metric_name = 'max_angle_diffs_grad_'
 bar_width = 0.2
 opacity = 0.4
 error_config = {'ecolor': '0.3', 'capsize' : 1.5}
 
 # Texts
-title = 'Accumulation of Angle Error'
+title = 'Maximum Angle Difference Changing Gradient'
 x_label = 'Test Suite'
-y_label = 'Angle Error Integration'
+y_label = 'Gradient'
 file_name = metric_name + 'figure.png'
 
 size = 14
@@ -59,11 +59,11 @@ rect_RLC = axs.bar(test_suites + 2 * bar_width, avg_rlc, bar_width,
             label='RLC')
 
 # Only for PR (since the bar is invisible)
-x = test_suites - bar_width
-y = avg_pr
+# x = test_suites - bar_width
+# y = avg_pr
 
-for a,b in zip(x,y):
-    plt.text(a, b+0.05, '%.04f' % b, ha='center', va= 'bottom',fontsize=10)
+# for a,b in zip(x,y):
+#     plt.text(a, b+0.05, '%.04f' % b, ha='center', va= 'bottom',fontsize=11)
 
 axs.set_xticks(test_suites + bar_width / 4)
 axs.set_xticklabels(test_suites)
@@ -72,7 +72,7 @@ axs.set_ylabel(y_label, fontsize=13)
 axs.set_title(title, fontsize=16)
 axs.legend(loc="upper right", prop={'size': 13})
 
-# plt.savefig('./data_analytics/figures/'+ file_name, bbox_inches = 'tight')
+plt.savefig('./data_analytics/figures/'+ file_name, bbox_inches = 'tight')
 plt.show()
 
 
