@@ -14,7 +14,7 @@ opacity = 0.4
 error_config = {'ecolor': '0.3', 'capsize' : 1.5}
 
 # Texts
-title = 'Accumulation of Angle Error in Relavent Area'
+title = 'Accumulation of Angle Differences in Relevant Area'
 x_label = 'Test Suite'
 y_label = 'Angle Error Integration'
 file_name = metric_name + 'figure.png'
@@ -23,7 +23,7 @@ size = 14
 test_suites = np.arange(1,size + 1)
 avg_name =  metric_name + 'avg'
 std_name = metric_name + 'sd'
-figure, axs = plt.subplots()
+figure, axs = plt.subplots(figsize=(12, 5))
 
 avg_pr = df_pr[avg_name].tolist()
 std_pr = df_pr[std_name].tolist()
@@ -63,14 +63,14 @@ x = test_suites - bar_width
 y = avg_pr
 
 for a,b in zip(x,y):
-    plt.text(a, b+0.05, '%.04f' % b, ha='center', va= 'bottom',fontsize=6)
+    plt.text(a, b+0.05, '%.04f' % b, ha='center', va= 'bottom',fontsize=9)
 
 axs.set_xticks(test_suites + bar_width / 4)
 axs.set_xticklabels(test_suites)
 axs.set_xlabel(x_label)
 axs.set_ylabel(y_label)
 axs.set_title(title)
-axs.legend(loc="upper right")
+axs.legend(loc="upper right", prop={'size': 12})
 
 plt.savefig('./data_analytics/figures/'+ file_name)
 plt.show()
